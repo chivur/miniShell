@@ -1,0 +1,70 @@
+===========================================================
+<CCR>,<332CA>
+===========================================================
+					>>SO<<
+					
+					
+				    -tema2-
+
+				  
+				  |MINI_SHELL|
+
+===========================================================
+
+1. Implementare
+2. Probleme aparute
+3. End
+
+===========================================================
+*1. Dupa familiarizarea cu parserul oferit , am implementat
+*   urmatoarele functii :
+*
+* <shell_cd> :
+* - se face un apel la chdir care schimba "working directory"-ul
+*   procesului
+*
+* <shell_exit>:
+* - returneaza SHELL_EXIT
+*
+* <redirect>:
+* - folosind dup2 redirectez std(in/out/err) spre un alt fisier
+*   care este deschis corespunzator tipului de redirectare
+*   (cu flaguri RDONLY / APPEND / etc)
+*
+* <parse_simple>:
+* - in aceasta functie am urmat todo-urile sugerate in schelet :
+*   comenzile interne , apoi variabilele de mediu , urmand crearea
+*   unui proces copil pentru executia comenzii primite in mini shell,
+*   redirectari si incheiand cu apelul de waitpid al parintelui
+*   pentru a evita situatia in care procesul copil devine zombie
+*
+* <do_in_parallel>:
+* - am creat 2 copii (prin 2 apeluri fork) , fiecare executand
+*   o comanda , parintele avand cate un waitpid la final pentru
+*   ambii copii
+*
+* <do_on_pipe>:
+* - am folosit un pipe pentru a redirecta iesirea cmd1 spre intrarea
+*   cmd2 , redirectand capatul "de scris" al pipe-ului spre stdout_cmd1
+*   iar capatul "de citit" spre stdin_cmd2
+*
+*
+===========================================================
+|2. Probleme aparute:
+| \____________________________________________________________________/|
+| 
+|  Inceputul a fost mai dificil , trebuind sa ma familiarizez cu parserul
+|  oferit , insa acesta a usurat treaba considerabil.
+|
+|  Alte probleme au aparut in lucrul cu "pipe" , intelegand gresit documentatia
+|  (pipefd[0] v pipefd[1]).
+|
+|  In rest (ignorand alte probleme triviale) tema a decurs normal.
+| 
+| /____________________________________________________________________\|
+   
+===========================================================
+*__________<<_____*_____|_____*_____>>__________*
+===========================================================
+                     <<END>>
+===========================================================
